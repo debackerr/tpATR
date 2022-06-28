@@ -11,6 +11,8 @@ if __name__ == "__main__":
 
     threads = []
     threads.append(tank)
+    threads.append(control)
+    threads.append(synoptic)
 
     for t in threads:
         t.join()
