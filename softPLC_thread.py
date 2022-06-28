@@ -14,6 +14,6 @@ class Control (threading.Thread):
         client = Client()
         client.__init__(HOST, PORT)
         
-        h = client.set_new_height()
+        h = client.gets_new_height()
     
     

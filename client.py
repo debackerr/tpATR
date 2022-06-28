@@ -12,13 +12,10 @@ class Client:
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((self.host, self.port))
 
-    def set_new_height(self):
-        msg = "new height"
-        self.s.send(struct.pack(msg,len(msg), self.msgOrder))
-        self.msgOrder += 1
-
+    def gets_new_height(self):
         msg = struct.unpack('!4H1016s', self.s.recv(1024))
         msg.decode(ascii) 
-        h = msg[0]
+        h = int(msg)
         return h
+
         

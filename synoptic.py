@@ -16,5 +16,6 @@ class synoptic(threading.Thread):
         server.__init__(HOST, PORT)
         server.connect_tcp()
         server.receive()
+        
 
         

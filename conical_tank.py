@@ -7,7 +7,7 @@ import math
 def f(Qin,h):
     R1= 1
     R0 = 2
-    H = 5
+    H = 10
     Cv = 0.7
 
     alpha = (R1-R0)/H
