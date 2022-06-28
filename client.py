@@ -1,4 +1,4 @@
-import socket, struct
+import socket
 
 class Client:
     def __init__(self, host, port):
@@ -13,9 +13,19 @@ class Client:
         self.s.connect((self.host, self.port))
 
     def gets_new_height(self):
-        msg = struct.unpack('!4H1016s', self.s.recv(1024))
-        msg.decode(ascii) 
+        msg = 'h'
+        self.s.send(bytes(msg))
+        msg = str(self.s.recv(1024)) 
         h = int(msg)
         return h
+    
+    def print_values(self):
+        msg = 'values'
+        self.s.send(bytes(msg))
+        msg = str(self.s.recv(1024))
+        
 
+    def end_connection(self):
+        msg = 'end'
+        return msg
         

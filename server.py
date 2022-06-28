@@ -1,12 +1,10 @@
-
-import socket, struct
+import socket
 
 class Server:
 
   def __init__(self, host, port):
     self.host = host
     self.port = port
-    self.msgOrder = 0 
 
   def connect_tcp(self):
     self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,7 +16,8 @@ class Server:
     while True:
       conn, adress = self.s.accept()
       print("new connction: {}".format(str(adress)))
-      msg = struct.unpack('!4H1016s', conn.recv(1024))
+      msg =  str(conn.recv(1024))
+
       if len(msg) != 0:
         self.handle(msg)         
       else:
@@ -26,17 +25,16 @@ class Server:
         self.s.close()
         
   def handle(self,msg):
-    if (msg.decode('ascii') == 'h'):
+    if (msg == 'h'):
       msg = self.set_new_height()
-    elif (msg.decode('ascii') == 'values'):
+    elif ( msg == 'values'):
       print("%s",msg)
       msg = "ok"
     else:
       print("\n unknown message")
       msg = "error"
     
-    self.s.send(struct.pack(msg,len(msg), self.msgOrder))
-    self.msgOrder += 1
+    self.s.send(bytes(msg))
 
   
   def set_new_height(self):
