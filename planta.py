@@ -3,15 +3,16 @@ import threading, time, math
 from client import Client
 from sys import exit
 
-def tank():
+def tank(h,qin):
     while True:
         pcs_timer.wait()
         sem.acquire()
-        print("process_thread aqui" + str(time.process_time) + "\n")
+        h = h*20
+        qin +=2
         sem.release()
         
 
-def plc():
+def plc(h,qin):
     HOST = "127.0.0.1"
     PORT = 51511
     client = Client(HOST,PORT)
@@ -21,7 +22,8 @@ def plc():
     while True:
         plc_timer.wait()
         sem.acquire()
-        print("softPLC aqui: rk4 \n")
+        h = h - 10
+        qin = qin * 2
         sem.release()
 
         client.send(h,qin,qout)
@@ -31,11 +33,11 @@ def timers():
     while True:
         pcs_timer.set()
         pcs_timer.clear()
-        time.sleep(2)
+        time.sleep(0.05)
 
         plc_timer.set()
         plc_timer.clear()
-        time.sleep(1)
+        time.sleep(0.025)
     
 
 if __name__ == "__main__":
@@ -53,8 +55,8 @@ if __name__ == "__main__":
     plc_timer = threading.Event()
     
     timer_thread = threading.Thread(target = timers)
-    process_thread = threading.Thread(target = tank)
-    softPLC_thread = threading.Thread(target=plc)
+    process_thread = threading.Thread(target = tank,args = (h, qin) )
+    softPLC_thread = threading.Thread(target=plc, args = (h, qin))
 
     threads = []
     

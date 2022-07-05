@@ -1,5 +1,6 @@
 import time, os.path
 import multiprocessing as mp
+from sys import exit
 from server import Server
 
 def synoptic_process():
@@ -12,20 +13,21 @@ def synoptic_process():
     while True:
         msg = server.recv(1024)
 
-        # if not msg:
-        #     print("\n connection terminated")
-        #     server.close()
-        #     break
-        # else:
-        print(str(msg))
-        time.sleep(1)
-
-        if (os.path.isfile("historiador.txt")):
-            file = open("historiador.txt", 'a') #opens existing file 
+        if not msg:
+            print("\n connection terminated")
+            server.close()
+            exit()
+            break
         else:
-            file = open("historiador.txt","x")  #creates a new file
-            
-        file.write(str(msg))
+            print(str(msg))
+            time.sleep(1)
+
+            if (os.path.isfile("historiador.txt")):
+                file = open("historiador.txt", 'a') #opens existing file 
+            else:
+                file = open("historiador.txt","x")  #creates a new file
+                
+            file.write(str(msg))
 
         
     

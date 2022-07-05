@@ -15,10 +15,8 @@ class Client:
         return msg
     
     def send(self, h, qin, qout):
-        msg = f"Qin: {qin}  m^3/s; h: {h} m; Qout: {qout}m^3/s \n"
-        print("mandou?")
+        msg = f"\n Qin: {qin}  m^3/s; h: {h} m; Qout: {qout}m^3/s"
         print(msg)
-        print(" mandou")
         self.s.send(bytes( msg, encoding = 'UTF-8'))
     
     def close(self):

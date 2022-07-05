@@ -1,4 +1,5 @@
 import socket
+from codecs import decode
 
 class Server:
 
@@ -22,7 +23,7 @@ class Server:
 
     def recv(self, size):
         msg = self.con.recv(size)
-        return msg
+        return msg.decode()
 
     def close(self):
         self.con.close()
