@@ -28,9 +28,6 @@ def synoptic_process():
                 file = open("historiador.txt","x")  #creates a new file
                 
             file.write(str(msg))
-
-        
-    
     
 
 if __name__ == "__main__":
