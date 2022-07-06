@@ -8,7 +8,7 @@ from simple_pid import PID
 from client import Client
 from sys import exit
 
-SIMULATION_TIME = 20.0    
+SIMULATION_TIME = 10.0    
 # defines the execution time of the simulation - in seconds
 
 beginning_time = time.time() 
@@ -30,14 +30,11 @@ def tank():
         # runge-kutta method returns new value of h
         mutex.release()
 
-    end_pcs = bool(True)
-
-
-        
+    end_pcs = bool(True)        
 
 def plc():
     global h,qin
-    global end_pcs
+    global end_plc
     t =  beginning_time
     
     HOST = "127.0.0.1"  
@@ -73,9 +70,12 @@ def plc():
         # sends new values to the synoptic_process via socket
    
     client.close()
-    end_pcs = bool(True)
+    end_plc = bool(True)
+    
 
 def timers():
+    global end_pcs, end_plc
+    end_timer = bool(False)
     while (not ( end_pcs and end_plc)):
 
         pcs_timer.set()
@@ -86,10 +86,16 @@ def timers():
         plc_timer.set()
         plc_timer.clear()
         time.sleep(0.025)
-    # enables the softcPLC_thread every 25ms
+        # enables the softcPLC_thread every 25ms
+
+        # end_timer = bool(end_pcs and  end_plc)
+        # print("\n fim controle:" + str(end_plc))
+        # print("\n bool timer: " + str(end_timer))
+        # print("\n fim tanque: " + str(end_pcs))
+
     
     print("\n simulation ended")
-    exit()
+    exit(0)
 
 if __name__ == "__main__":
     global end_pcs, end_plc
