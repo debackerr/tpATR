@@ -31,5 +31,3 @@ class Server:
 
     def close(self):
         self.con.close()
-        
-

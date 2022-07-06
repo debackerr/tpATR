@@ -29,6 +29,12 @@ def rk4(x0,y0):
     y = y + (1.0 / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
     return y
 
+def tank_dynamic(u,h):
+    u = abs(u)
+    h = rk4(u,h)
+    h = np.round(h, 3)
 
+    qout = 0.75*np.sqrt(h)
+    qout = np.round(qout, 3)
 
-
+    return h, qout
