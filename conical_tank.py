@@ -3,7 +3,7 @@
     to approximate solutions of the Ordinary Differential Equations here envolved 
     """
 
-import math
+import numpy as np
 
 def f(Qin,h):
     R1= 1
@@ -12,13 +12,14 @@ def f(Qin,h):
     Cv = 0.7
 
     alpha = (R1-R0)/H
-    Qout = Cv * math.sqrt(h)
+    Qout = Cv * np.sqrt(h)
     u = Qin
     
-    return (- Qout/(math.pi * (R0 + alpha * h)) + (u / math.pi * (R0 + alpha * h)))
+    return (- Qout/(np.pi * (R0 + alpha * h)) + (u / np.pi * (R0 + alpha * h)))
 
 
-def rk4(x0,y0,step):    
+def rk4(x0,y0): 
+    step = 0.01   
     y = y0
     k1 = step * f(x0, y)
     k2 = step * f(x0 + 0.5 * step, y + 0.5 * k1)
@@ -27,3 +28,7 @@ def rk4(x0,y0,step):
 
     y = y + (1.0 / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
     return y
+
+
+
+

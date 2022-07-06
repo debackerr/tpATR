@@ -1,3 +1,7 @@
+""" The following code is a simple Server class for tcp/ip communication.
+    Each method was implemented considering the particular application of the present work
+"""
+
 import socket
 from codecs import decode
 
@@ -17,7 +21,7 @@ class Server:
         self.con = con
         return str(address)
 
-    def send_msg(self,msg, con):
+    def send_msg(self,msg):
        self.con.send(bytes(msg, encoding = 'UTF-8'))
 
 

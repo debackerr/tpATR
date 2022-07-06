@@ -1,5 +1,8 @@
+""" The following code is a simple Cliente class for tcp/ip communication.
+    Each method was implemented considering the particular application of the present work
+"""
+
 import socket
-from sys import exit
 class Client:
     def __init__(self, host, port):
         self.host = host
@@ -14,8 +17,7 @@ class Client:
         msg = self.s.recv(1024)
         return msg
     
-    def send(self, h, qin, qout):
-        msg = f"\n Qin: {qin}  m^3/s; h: {h} m; Qout: {qout}m^3/s"
+    def send(self, msg):
         self.s.send(bytes( msg, encoding = 'UTF-8'))
     
     def close(self):

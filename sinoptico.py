@@ -1,6 +1,5 @@
 import time, os.path
 import multiprocessing as mp
-from sys import exit
 from server import Server
 
 def synoptic_process():
@@ -8,7 +7,9 @@ def synoptic_process():
     PORT = 51511
     server =  Server(HOST, PORT)
     address =  server.connect_tcp()
-    print("\n new connection by: " + address)
+    print("new connection by: " + address)
+    h_ref = input("\nplease set a rerence height: ")
+    server.send_msg(h_ref)
 
     while True:
         msg = server.recv(1024)
@@ -16,8 +17,8 @@ def synoptic_process():
         if not msg:
             print("\n connection terminated")
             server.close()
-            exit()
             break
+
         else:
             print(str(msg))
             time.sleep(1)
@@ -32,3 +33,4 @@ def synoptic_process():
 
 if __name__ == "__main__":
     synoptic = mp.Process(target=synoptic_process())
+    
