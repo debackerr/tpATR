@@ -13,7 +13,11 @@ def synoptic_process():
     server =  Server(HOST, PORT)
     address =  server.connect_tcp()
     print("new connection by: " + address)
-    h_ref = input("\nplease set a rerence height - maxium 10m : ")
+    h_ref = input("\nplease set a rerence height - maximum 10m : ")
+    while (int(h_ref) > 10):
+        h_ref = input("\nplease set a valid reference - maximum 10m : ")
+        if ( int(h_ref) <= 10):
+            break
 
     server.send_msg(h_ref)
 
